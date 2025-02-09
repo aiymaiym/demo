@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация и Вход</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input { margin: 5px; padding: 8px; width: 200px; }
+        button { margin: 10px; padding: 10px; width: 220px; cursor: pointer; }
+        #message { margin-top: 10px; font-weight: bold; color: green; }
+    </style>
+    <script>
+        async function registerUser() {
+            const username = document.getElementById("reg-username").value;
+            const password = document.getElementById("reg-password").value;
+            const message = document.getElementById("message");
+
+            if (!username || !password) {
+                message.style.color = "red";
+                message.innerText = "Введите логин и пароль!";
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/auth/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.text();
+                message.style.color = response.ok ? "green" : "red";
+                message.innerText = result;
+            } catch (error) {
+                message.style.color = "red";
+                message.innerText = "Ошибка запроса: " + error.message;
+            }
+        }
+
+        async function loginUser() {
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+            const message = document.getElementById("message");
+
+            if (!username || !password) {
+                message.style.color = "red";
+                message.innerText = "Введите логин и пароль!";
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("token", result.token);
+                    message.style.color = "green";
+                    message.innerText = "Успешный вход! Токен сохранён.";
+                } else {
+                    message.style.color = "red";
+                    message.innerText = "Ошибка входа: " + (result.message || "Попробуйте снова.");
+                }
+            } catch (error) {
+                message.style.color = "red";
+                message.innerText = "Ошибка запроса: " + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+<h2>Регистрация</h2>
+<input type="text" id="reg-username" placeholder="Введите логин"><br>
+<input type="password" id="reg-password" placeholder="Введите пароль"><br>
+<button onclick="registerUser()">Зарегистрироваться</button>
+
+<h2>Вход</h2>
+<input type="text" id="login-username" placeholder="Введите логин"><br>
+<input type="password" id="login-password" placeholder="Введите пароль"><br>
+<button onclick="loginUser()">Войти</button>
+
+<p id="message"></p>
+</body>
+</html>
