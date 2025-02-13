@@ -28,7 +28,6 @@ public class Users {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
-    // Конструкторы
     public Users() {}
 
     public Users(String username, String email, String password) {
@@ -86,3 +85,4 @@ public class Users {
                 '}';
     }
 }
+
