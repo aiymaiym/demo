@@ -37,11 +37,9 @@ public class Users {
         this.password = password;
     }
 
-    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -49,7 +47,6 @@ public class Users {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -57,7 +54,6 @@ public class Users {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -65,7 +61,6 @@ public class Users {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -73,7 +68,6 @@ public class Users {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
     public List<Post> getPosts() {
         return posts;
     }
@@ -82,7 +76,6 @@ public class Users {
         this.posts = posts;
     }
 
-    // toString() метод
     @Override
     public String toString() {
         return "User{" +

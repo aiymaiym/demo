@@ -19,7 +19,6 @@ public class Post {
 
     @Column(name = "likes_count", nullable = false)
     private int likesCount = 0;
-
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
