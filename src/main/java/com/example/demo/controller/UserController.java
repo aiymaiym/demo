@@ -17,20 +17,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Get all users
     @GetMapping
     public List<Users> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<Users> getUserById(@PathVariable Long id) {
         Optional<Users> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    // Create a new user
     @PostMapping
     public Users createUser(@RequestBody Users user) {
         return userService.createUser(user);
