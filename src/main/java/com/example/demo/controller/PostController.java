@@ -17,19 +17,16 @@ public class PostController {
         this.postService = postService;
     }
 
-    // Get all posts
     @GetMapping
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
 
-    // Get posts by user ID
     @GetMapping("/user/{userId}")
     public List<Post> getPostsByUserId(@PathVariable Long userId) {
         return postService.getPostsByUserId(userId);
     }
 
-    // Create a new post
     @PostMapping
     public Post createPost(@RequestBody Post post) {
         return postService.createPost(post);
