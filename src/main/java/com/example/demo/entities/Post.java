@@ -21,6 +21,4 @@ public class Post {
     private int likesCount = 0;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
-
-    // Getters and Setters
 }
